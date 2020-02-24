@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      database: jirelloDB
+      port: 27017
+
+graphql:
+  endpoint: /api/graphql
