@@ -1,0 +1,23 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    taskById(id: ID!): Task
+}
+
+type Task {
+    id: ID!
+    title: String
+    description: String
+}
+
+type Mutation {
+    taskCreate(task: TaskInput!): Task
+}
+
+input TaskInput {
+    title: String!
+    description: String
+}
