@@ -22,7 +22,7 @@ public class ColumnFetcher {
 
     public DataFetcher<ColumnOutput> getById() {
         return (env) -> {
-            String id = getIdArgument(env, env.getSource());
+            String id = getIdArgument(env);
             if (id == null) {
                 return null;
             } else {
@@ -38,7 +38,8 @@ public class ColumnFetcher {
         };
     }
 
-    private String getIdArgument(DataFetchingEnvironment env, ColumnProvider provider) {
+    private String getIdArgument(DataFetchingEnvironment env) {
+        ColumnProvider provider = env.getSource();
         if (provider == null) {
             return env.getArgument("id");
         } else {

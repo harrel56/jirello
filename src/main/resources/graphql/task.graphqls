@@ -1,5 +1,6 @@
 extend type Query {
     taskById(id: ID!): Task
+    taskGetAll: [Task!]!
 }
 
 extend type Mutation {

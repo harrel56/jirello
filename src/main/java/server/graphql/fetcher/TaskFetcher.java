@@ -6,12 +6,15 @@ import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import server.graphql.output.ColumnOutput;
 import server.graphql.output.TaskOutput;
 import server.graphql.tool.ObjectMerger;
 import server.model.Task;
 import server.repo.TaskRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskFetcher {
@@ -26,6 +29,10 @@ public class TaskFetcher {
         return (env) -> getByIdImpl(env).map(this::toOutput).orElse(null);
     }
 
+    public DataFetcher<List<TaskOutput>> getAll() {
+        return this::getAllImpl;
+    }
+
     public DataFetcher<TaskOutput> createNew() {
         return this::createNewImpl;
     }
@@ -37,6 +44,17 @@ public class TaskFetcher {
     private Optional<Task> getByIdImpl(DataFetchingEnvironment env) {
         String id = env.getArgument("id");
         return taskRepository.findById(id);
+    }
+
+    private List<TaskOutput> getAllImpl(DataFetchingEnvironment env) {
+        ColumnOutput column = env.getSource();
+        List<Task> tasks;
+        if (column == null) {
+            tasks = taskRepository.findAll();
+        } else {
+            tasks = taskRepository.findAll(Task.asExampleByColumnId(column.getId()));
+        }
+        return tasks.stream().map(this::toOutput).collect(Collectors.toList());
     }
 
     private TaskOutput createNewImpl(DataFetchingEnvironment env) {

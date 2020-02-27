@@ -49,13 +49,16 @@ public class GraphQLProvider {
         return RuntimeWiring.newRuntimeWiring()
                 .type(TypeRuntimeWiring.newTypeWiring("Query")
                         .dataFetcher("taskById", taskFetcher.getById())
+                        .dataFetcher("taskGetAll", taskFetcher.getAll())
                         .dataFetcher("columnById", columnFetcher.getById()))
                 .type(TypeRuntimeWiring.newTypeWiring("Mutation")
                         .dataFetcher("taskCreate", taskFetcher.createNew())
                         .dataFetcher("taskUpdate", taskFetcher.update())
                         .dataFetcher("columnCreate", columnFetcher.createNew()))
                 .type(TypeRuntimeWiring.newTypeWiring("Task")
-                        .dataFetcher("column", columnFetcher.getById())
+                        .dataFetcher("column", columnFetcher.getById()))
+                .type(TypeRuntimeWiring.newTypeWiring("Column")
+                        .dataFetcher("tasks", taskFetcher.getAll())
                 ).build();
     }
 

@@ -1,6 +1,7 @@
 package server.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("tasks")
@@ -46,5 +47,11 @@ public class Task {
 
     public void setColumnId(String columnId) {
         this.columnId = columnId;
+    }
+
+    public static Example<Task> asExampleByColumnId(String columnId) {
+        Task task = new Task();
+        task.setColumnId(columnId);
+        return Example.of(task);
     }
 }
