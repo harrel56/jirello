@@ -6,3 +6,4 @@ spring:
 
 graphql:
   endpoint: /api/graphql
+  schema-location: classpath:graphql

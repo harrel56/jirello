@@ -1,27 +1,21 @@
-package server.model;
+package server.graphql.output;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import server.graphql.output.provider.ColumnProvider;
 
-@Document("tasks")
-public class Task {
+public class TaskOutput implements ColumnProvider {
 
-    @Id
     private String id;
     private String title;
     private String description;
     private String columnId;
-
-    public Task() {
-    }
-
-    public Task(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
+    private ColumnOutput column;
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -40,11 +34,20 @@ public class Task {
         this.description = description;
     }
 
+    @Override
     public String getColumnId() {
         return columnId;
     }
 
     public void setColumnId(String columnId) {
         this.columnId = columnId;
+    }
+
+    public ColumnOutput getColumn() {
+        return column;
+    }
+
+    public void setColumn(ColumnOutput column) {
+        this.column = column;
     }
 }

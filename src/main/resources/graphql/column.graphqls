@@ -1,0 +1,17 @@
+extend type Query {
+    columnById(id: ID!): Column
+}
+
+extend type Mutation {
+    columnCreate(column: ColumnInput!): Column!
+}
+
+type Column {
+    id: ID!
+    title: String
+    tasks: [Task!]!
+}
+
+input ColumnInput {
+    title: String!
+}

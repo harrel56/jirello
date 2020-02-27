@@ -1,23 +1,21 @@
-schema {
-    query: Query
-    mutation: Mutation
+extend type Query {
+    taskById(id: ID!): Task
 }
 
-type Query {
-    taskById(id: ID!): Task
+extend type Mutation {
+    taskCreate(task: TaskInput!): Task!
+    taskUpdate(id: ID!, task: TaskInput!): Task!
 }
 
 type Task {
     id: ID!
     title: String
     description: String
-}
-
-type Mutation {
-    taskCreate(task: TaskInput!): Task
+    column: Column
 }
 
 input TaskInput {
     title: String!
     description: String
+    columnId: ID
 }
