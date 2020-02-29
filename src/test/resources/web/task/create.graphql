@@ -1,0 +1,10 @@
+mutation {
+    taskCreate(task: {
+        title: "%s",
+        description: "%s"
+    }) {
+        id
+        title
+        description
+    }
+}

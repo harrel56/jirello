@@ -11,10 +11,21 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.2.4.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.4.RELEASE'
-    compile group: 'com.graphql-java', name: 'graphql-java', version: '14.0'
+configurations.all {
+    exclude group: 'org.junit.vintage'
+    exclude group: 'junit'
+}
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+dependencies {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.2.4.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.4.RELEASE'
+    implementation group: 'com.graphql-java', name: 'graphql-java', version: '14.0'
+
+    implementation('org.springframework.boot:spring-boot-starter-test:2.2.4.RELEASE')
+
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.3.1')
+}
+
+test {
+    useJUnitPlatform()
 }

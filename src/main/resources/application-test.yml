@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      database: jirelloDB_test
+
+graphql:
+  endpoint: /api/graphql
+  queries-location: classpath:web
+
+server:
+  port: 8081
+  url: http://localhost
