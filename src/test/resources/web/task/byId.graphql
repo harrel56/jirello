@@ -1,9 +1,5 @@
-mutation {
-    taskCreate(task: {
-        title: "%s",
-        description: "%s",
-        columnId: %s
-    }) {
+query {
+    taskById(id: "%s") {
         id
         title
         description

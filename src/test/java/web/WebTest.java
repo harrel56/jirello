@@ -55,4 +55,12 @@ public abstract class WebTest {
         return node.fields().next().getValue();
     }
 
+    protected static String escaped(String in) {
+        return in.replace("\\", "\\\\");
+    }
+
+    protected static String quoted(String in) {
+        return "\"" + in + "\"";
+    }
+
 }

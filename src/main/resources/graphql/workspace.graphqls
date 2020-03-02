@@ -1,0 +1,17 @@
+extend type Query {
+    workspaceById(id: ID!): Workspace
+}
+
+extend type Mutation {
+    workspaceCreate(workspace: WorkspaceInput!): Workspace!
+}
+
+type Workspace {
+    id: ID!
+    title: String
+    columns: [Column!]!
+}
+
+input WorkspaceInput {
+    title: String!
+}

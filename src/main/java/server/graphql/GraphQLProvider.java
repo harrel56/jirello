@@ -10,6 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import server.graphql.fetcher.ColumnFetcher;
 import server.graphql.fetcher.TaskFetcher;
+import server.graphql.fetcher.WorkspaceFetcher;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -25,12 +26,17 @@ public class GraphQLProvider {
     private Resource taskResource;
     @Value("${graphql.schema-location}/column.graphqls")
     private Resource columnResource;
+    @Value("${graphql.schema-location}/workspace.graphqls")
+    private Resource workspaceResource;
 
     @Autowired
     private TaskFetcher taskFetcher;
 
     @Autowired
     private ColumnFetcher columnFetcher;
+
+    @Autowired
+    private WorkspaceFetcher workspaceFetcher;
 
     @Bean
     public GraphQL getGraphQL() {
@@ -50,15 +56,20 @@ public class GraphQLProvider {
                 .type(TypeRuntimeWiring.newTypeWiring("Query")
                         .dataFetcher("taskById", taskFetcher.getById())
                         .dataFetcher("taskGetAll", taskFetcher.getAll())
-                        .dataFetcher("columnById", columnFetcher.getById()))
+                        .dataFetcher("columnById", columnFetcher.getById())
+                        .dataFetcher("workspaceById", workspaceFetcher.getById()))
                 .type(TypeRuntimeWiring.newTypeWiring("Mutation")
                         .dataFetcher("taskCreate", taskFetcher.createNew())
                         .dataFetcher("taskUpdate", taskFetcher.update())
-                        .dataFetcher("columnCreate", columnFetcher.createNew()))
+                        .dataFetcher("columnCreate", columnFetcher.createNew())
+                        .dataFetcher("workspaceCreate", workspaceFetcher.createNew()))
                 .type(TypeRuntimeWiring.newTypeWiring("Task")
                         .dataFetcher("column", columnFetcher.getById()))
                 .type(TypeRuntimeWiring.newTypeWiring("Column")
                         .dataFetcher("tasks", taskFetcher.getAll())
+                        .dataFetcher("workspace", workspaceFetcher.getById()))
+                .type(TypeRuntimeWiring.newTypeWiring("Workspace")
+                        .dataFetcher("columns", columnFetcher.getAll())
                 ).build();
     }
 
@@ -66,7 +77,8 @@ public class GraphQLProvider {
         SchemaParser parser = new SchemaParser();
         return parser.parse(schemaResource.getFile())
                 .merge(parser.parse(taskResource.getFile()))
-                .merge(parser.parse(columnResource.getFile()));
+                .merge(parser.parse(columnResource.getFile()))
+                .merge(parser.parse(workspaceResource.getFile()));
     }
 
 }

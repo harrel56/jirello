@@ -13,14 +13,6 @@ public class Task {
     private String description;
     private String columnId;
 
-    public Task() {
-    }
-
-    public Task(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
-
     public String getId() {
         return id;
     }

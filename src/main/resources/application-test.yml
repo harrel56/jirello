@@ -5,7 +5,6 @@ spring:
 
 graphql:
   endpoint: /api/graphql
-  queries-location: classpath:web
 
 server:
   port: 8081

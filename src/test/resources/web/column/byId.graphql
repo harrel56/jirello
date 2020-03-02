@@ -1,0 +1,15 @@
+{
+    columnById(id: "%s"){
+        id
+        title
+        tasks {
+            id
+            title
+            description
+            column {
+                id
+                title
+            }
+        }
+    }
+}

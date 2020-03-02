@@ -1,15 +1,13 @@
 mutation {
-    taskCreate(task: {
+    taskUpdate(id: "%s", task: {
         title: "%s",
-        description: "%s",
-        columnId: %s
+        description: "%s"
     }) {
         id
         title
         description
         column {
             id
-            title
         }
     }
 }
