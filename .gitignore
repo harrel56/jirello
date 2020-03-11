@@ -3,3 +3,6 @@
 /gradle/
 /.idea/libraries/
 /.idea/inspectionProfiles
+/src/main/resources/static/build/
+/node_modules/
+/.idea/codeStyles/

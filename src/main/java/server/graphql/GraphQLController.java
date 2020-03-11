@@ -1,4 +1,4 @@
-package server;
+package server.graphql;
 
 import graphql.ExecutionResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,10 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import server.graphql.GraphQLProvider;
 
 @RestController
-public class MainController {
+public class GraphQLController {
 
     @Autowired
     private GraphQLProvider graphQLProvider;
