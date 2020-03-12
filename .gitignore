@@ -6,3 +6,4 @@
 /src/main/resources/static/build/
 /node_modules/
 /.idea/codeStyles/
+/package-lock.json

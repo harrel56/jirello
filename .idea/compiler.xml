@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="Jirello.main" target="11" />
       <module name="Jirello.test" target="11" />
+      <module name="org.jirello.Jirello.main" target="11" />
+      <module name="org.jirello.Jirello.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
