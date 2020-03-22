@@ -1,0 +1,40 @@
+@use 'utils';
+
+.button {
+	color: $specialColor;
+	padding: 1em;
+	font-weight: 800;
+
+	&:hover {
+		background-color: #{$specialColor + '0a'};
+	}
+
+	& > span {
+		display: block;
+		transition: transform 0.1s;
+	}
+
+	&--pressed {
+		& > span {
+			transform: scale(0.85);
+		}
+	}
+}
+
+.actionButton {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	align-self: center;
+	justify-self: center;
+	background-color: $specialColor;
+
+	box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+		0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+
+	transition: background-color 0.2s;
+
+	&:hover {
+		background-color: $specialColorDim;
+	}
+}

@@ -10,7 +10,7 @@ const WorkspaceEdit = ({ title, description, onEditEnd }) => {
 	useFocusOutListener(mainDiv, onEditEnd);
 
 	return (
-		<div ref={mainDiv} tabIndex='-1' className='workspace-details'>
+		<div ref={mainDiv} tabIndex='-1' className='workspace-card__details'>
 			<Textarea name='Title' defaultValue={title} autoFocus />
 			<Spacer height='40' />
 			<Textarea name='Description' defaultValue={description} autoHeight />

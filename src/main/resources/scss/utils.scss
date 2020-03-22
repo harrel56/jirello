@@ -1,0 +1,27 @@
+$bgColor: #f5f5f5;
+$contentColor: #f5f5f5;
+$specialColor: #3fbac2;
+$specialColorDim: #38a7ae;
+$fillColor: #4d606e;
+$whiteColor: #ffffff;
+$fontColor: rgba(0, 0, 0, 0.87);
+$pColor: rgba(0, 0, 0, 0.55);
+$lightDim: rgba(0, 0, 0, 0.015);
+$cubicBezier: cubic-bezier(0.3, 0.9, 0.8, 0.9);
+
+@mixin absolute($top: null, $right: null, $bottom: null, $left: null) {
+	position: absolute;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+
+@mixin flex-column {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.u-flex-column {
+	@include flex-column;
+}

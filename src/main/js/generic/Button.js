@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
-const buttonClass = 'defaultButton';
-const buttonPressedClass = 'defaultButton--pressed';
+const BASE_CLASS = 'button';
 
 const Button = props => {
 	const [pressed, setPressed] = useState(false);
+	const buttonClass = classNames(BASE_CLASS, {
+		[`${BASE_CLASS}--pressed`]: pressed
+	});
 	return (
 		<button
 			tabIndex='-1'
-			className={buttonClass + (pressed ? ' ' + buttonPressedClass : '')}
+			className={buttonClass}
 			onClick={props.onClick || null}
 			onMouseDown={() => setPressed(true)}
 			onMouseUp={() => setPressed(false)}

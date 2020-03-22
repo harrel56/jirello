@@ -1,0 +1,63 @@
+@use 'utils';
+
+.label {
+	display: block;
+	margin-bottom: 4px;
+	color: $pColor;
+	transition: color 0.4s $cubicBezier;
+}
+
+.textarea-container {
+	@include flex-column;
+	position: relative;
+	padding: 8px 8px 2px 8px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	transition: background-color 0.2s;
+
+	&__textarea {
+		width: 100%;
+		font: inherit;
+		font-size: 16px;
+		border: 0;
+		outline: 0;
+		resize: none;
+		overflow: hidden;
+		background-color: transparent;
+	}
+
+	&:hover {
+		background-color: $lightDim;
+	}
+
+	&:before {
+		position: absolute;
+		content: '';
+		left: 0;
+		bottom: 0;
+		right: 0;
+		border-bottom: 1px solid $pColor;
+	}
+
+	&:after {
+		position: absolute;
+		content: '';
+		left: 0;
+		bottom: 0;
+		right: 100%;
+		border-bottom: 2px solid $specialColor;
+		transition: right 0.4s $cubicBezier;
+	}
+
+	&--focused {
+		&:after {
+			right: 0;
+			transition: right 0.4s $cubicBezier;
+		}
+
+		.label {
+			color: $specialColor;
+			transition: color 0.4s $cubicBezier;
+		}
+	}
+}

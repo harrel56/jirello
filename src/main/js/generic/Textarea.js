@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
+import classNames from 'classnames';
+
+const BASE_CLASS = 'textarea-container';
 
 const Textarea = props => {
 	const [focused, setFocused] = useState(false);
 	const textarea = useRef(null);
+	const outerClass = classNames(BASE_CLASS, {
+		[`${BASE_CLASS}--focused`]: focused
+	});
 	useEffect(() => {
 		if (props.autoFocus) {
 			const val = textarea.current.value;
@@ -12,19 +18,19 @@ const Textarea = props => {
 		}
 	}, []);
 
-	const style = props.autoHeight ? { height: '100%' } : {};
-	const outerClass = 'defaultTextarea-container' + (focused ? ' defaultTextarea-container--focused' : '');
+	const style = props.autoHeight ? { flex: 'auto' } : {};
 
 	return (
 		<div style={style} className={outerClass}>
-			<label className='defaultLabel' htmlFor={props.name}>
+			<label className='label' htmlFor={props.name}>
 				{props.name}
 			</label>
-			<div style={style}>
+			<div className='u-flex-column' style={style}>
 				<textarea
+					style={style}
 					id={props.name}
 					ref={textarea}
-					className='defaultTextarea'
+					className={`${BASE_CLASS}__textarea u-flex-column`}
 					rows='1'
 					defaultValue={props.defaultValue}
 					onFocus={() => setFocused(true)}

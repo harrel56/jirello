@@ -32,30 +32,6 @@ const WorkspacePickerContainer = () => {
 			title: 'Other workspace',
 			description:
 				'By default, we use the combination of a <div> element and a background image to display the media. It can be problematic in some situations'
-		},
-		{
-			id: 'a16',
-			title: 'Other workspace',
-			description:
-				'By default, we use the combination of a <div> element and a background image to display the media. It can be problematic in some situations'
-		},
-		{
-			id: 'a17',
-			title: 'Other workspace',
-			description:
-				'By default, we use the combination of a <div> element and a background image to display the media. It can be problematic in some situations'
-		},
-		{
-			id: 'a18',
-			title: 'Other workspace',
-			description:
-				'By default, we use the combination of a <div> element and a background image to display the media. It can be problematic in some situations'
-		},
-		{
-			id: 'a19',
-			title: 'Other workspace',
-			description:
-				'By default, we use the combination of a <div> element and a background image to display the media. It can be problematic in some situations'
 		}
 	];
 	return <WorkspacePicker workspaces={workspaces} />;
