@@ -11,6 +11,9 @@ import server.graphql.tool.ObjectMerger;
 import server.model.Workspace;
 import server.repo.WorkspaceRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class WorkspaceFetcher {
 
@@ -28,6 +31,13 @@ public class WorkspaceFetcher {
             } else {
                 return workspaceRepository.findById(id).map(this::toOutput).orElse(null);
             }
+        };
+    }
+
+    public DataFetcher<List<WorkspaceOutput>> getAll() {
+        return (env) -> {
+            List<Workspace> all = workspaceRepository.findAll();
+            return all.stream().map(this::toOutput).collect(Collectors.toList());
         };
     }
 

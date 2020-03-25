@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ActionButton from '../generic/ActionButton';
+import ActionButton from 'components/generic/ActionButton';
 import WorkspaceCard from './WorkspaceCard';
 import classNames from 'classnames';
 
@@ -19,7 +19,7 @@ const WorkspaceNew = () => {
 
 	return (
 		<div style={{ position: 'relative' }}>
-			<WorkspaceCard editionMode={editionMode} className={cardClass} />
+			<WorkspaceCard className={cardClass} editionMode={editionMode} />
 			<ActionButton className={buttonClass} onClick={() => setEditionMode(true)} />
 		</div>
 	);

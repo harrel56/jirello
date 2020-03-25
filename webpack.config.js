@@ -1,13 +1,15 @@
-var path = require('path');
-
+/* eslint-disable no-undef */
 module.exports = {
-	entry: ['./src/main/js/index.js', './src/main/resources/scss/main.scss'],
+	entry: ['babel-polyfill', './src/main/js/index.js', './src/main/resources/scss/main.scss'],
 	devtool: 'sourcemaps',
 	cache: true,
 	mode: 'development',
 	output: {
 		path: __dirname,
 		filename: './src/main/resources/static/build/bundle.js'
+	},
+	resolve: {
+		modules: ['src/main/js', 'node_modules']
 	},
 	module: {
 		rules: [

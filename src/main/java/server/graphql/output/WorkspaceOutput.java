@@ -7,6 +7,7 @@ public class WorkspaceOutput {
 
     private String id;
     private String title;
+    private String description;
     private List<ColumnOutput> columns = new ArrayList<>();
 
     public String getId() {
@@ -23,6 +24,14 @@ public class WorkspaceOutput {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<ColumnOutput> getColumns() {

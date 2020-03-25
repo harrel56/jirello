@@ -1,46 +1,9 @@
 @use 'utils';
 
-.workspace-new {
-	position: absolute;
-	height: 100%;
-	bottom: 300px;
-	transition: bottom 0.3s, visibility 0.3s, opacity 0.3s;
-
-	&--visible {
-		bottom: 0;
-		visibility: visible;
-		opacity: 1;
-	}
-
-	&--hidden {
-		bottom: 300px;
-		visibility: hidden;
-		opacity: 0;
-	}
-}
-
-.workspace-button-new {
-	@include absolute(0, 0, 0, 0);
-	margin: auto;
-	transition: top 0.3s, visibility 0.3s, opacity 0.3s;
-
-	&--visible {
-		top: 0;
-		visibility: visible;
-		opacity: 1;
-	}
-
-	&--hidden {
-		top: 300px;
-		visibility: hidden;
-		opacity: 0;
-	}
-}
-
 .workspace-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, 300px);
-	grid-auto-rows: minmax(300px, auto);
+	grid-auto-rows: minmax(320px, auto);
 	gap: 5rem;
 	justify-content: center;
 	align-content: center;
@@ -49,6 +12,53 @@
 	padding: 10vh 0;
 	max-width: 90vw;
 	min-height: 100vh;
+
+	transition: opacity 0.4s;
+
+	&--hidden {
+		opacity: 0;
+	}
+
+	&--visible {
+		opacity: 1;
+	}
+}
+
+.workspace-new {
+	position: absolute;
+	height: 100%;
+	bottom: 300px;
+	transition: bottom 0.3s, z-index 0.3s, opacity 0.3s;
+
+	&--visible {
+		bottom: 0;
+		z-index: unset;
+		opacity: 1;
+	}
+
+	&--hidden {
+		bottom: 300px;
+		z-index: -1;
+		opacity: 0;
+	}
+}
+
+.workspace-button-new {
+	@include absolute(0, 0, 0, 0);
+	margin: auto;
+	transition: top 0.3s, z-index 0.3s, opacity 0.3s;
+
+	&--visible {
+		top: 0;
+		z-index: unset;
+		opacity: 1;
+	}
+
+	&--hidden {
+		top: 300px;
+		z-index: -1;
+		opacity: 0;
+	}
 }
 
 .workspace-card {
@@ -91,6 +101,12 @@
 			&:hover {
 				background-color: transparent;
 			}
+		}
+	}
+
+	&--edit-no-transition {
+		#{$base}__img {
+			transition: none;
 		}
 	}
 }

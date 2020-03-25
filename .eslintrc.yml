@@ -14,4 +14,10 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules: { 'react/prop-types': 0 }
+  - react-hooks
+rules: { 'react/prop-types': 0, 'react-hooks/rules-of-hooks': 'error', 'react-hooks/exhaustive-deps': 'warn' }
+
+settings:
+  import/resolver:
+    webpack:
+      config: webpack.config.js

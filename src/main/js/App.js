@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkspacePickerContainer from './workspace/WorkspacePickerContainer';
+import WorkspacePickerContainer from 'components/workspace/WorkspacePickerContainer';
 
 const App = () => {
 	return <WorkspacePickerContainer />;

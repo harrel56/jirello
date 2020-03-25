@@ -1,5 +1,6 @@
 extend type Query {
     workspaceById(id: ID!): Workspace
+    workspaceGetAll: [Workspace!]!
 }
 
 extend type Mutation {
@@ -9,9 +10,11 @@ extend type Mutation {
 type Workspace {
     id: ID!
     title: String
+    description: String
     columns: [Column!]!
 }
 
 input WorkspaceInput {
     title: String!
+    description: String
 }

@@ -35,6 +35,7 @@ const Textarea = props => {
 					defaultValue={props.defaultValue}
 					onFocus={() => setFocused(true)}
 					onBlur={() => setFocused(false)}
+					onChange={props.onChange}
 				></textarea>
 			</div>
 		</div>
