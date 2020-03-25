@@ -1,0 +1,43 @@
+@use 'utils' as *;
+
+.spinner-container {
+	display: flex;
+	height: 100vh;
+	align-items: center;
+	justify-items: center;
+
+	& > .spinner {
+		flex: auto;
+		text-align: center;
+
+		& > div {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			margin: 0 2px;
+
+			border-radius: 50%;
+			animation: spinner-pulse 1.2s infinite ease-in-out both;
+
+			&:nth-child(2) {
+				animation-delay: 0.15s;
+			}
+
+			&:nth-child(3) {
+				animation-delay: 0.3s;
+			}
+		}
+
+		@keyframes spinner-pulse {
+			0%,
+			100% {
+				transform: scale(0);
+				background-color: transparent;
+			}
+			40% {
+				transform: scale(1);
+				background-color: $specialColor;
+			}
+		}
+	}
+}
