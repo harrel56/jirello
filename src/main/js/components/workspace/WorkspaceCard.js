@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Button from 'components/generic/Button';
 import WorkspaceEdit from './WorkspaceEdit';
 import WorkspaceDetails from './WorkspaceDetails';
@@ -8,17 +8,12 @@ const BASE_CLASS = 'workspace-card';
 
 const WorkspaceCard = props => {
 	const forcedEditionMode = props.editionMode;
-	const [worskspaceData, setWorskspaceData] = useState(props.data ? props.data : { title: '', description: '' });
-	const [editionMode, setEditionMode] = useState(props.editionMode);
+	const [workspaceData, setWorkspaceData] = useState(props.data ? props.data : { title: '', description: '' });
+	const [editionMode, setEditionMode] = useState(forcedEditionMode);
 	const elementRef = useRef(null);
 	const elementClass = classNames(BASE_CLASS, props.className, {
-		[`${BASE_CLASS}--edit`]: editionMode,
-		[`${BASE_CLASS}--edit-no-transition`]: forcedEditionMode
+		[`${BASE_CLASS}--edit`]: editionMode
 	});
-
-	useEffect(() => {
-		setEditionMode(forcedEditionMode);
-	}, [forcedEditionMode]);
 
 	const onEdit = () => {
 		elementRef.current.style.minHeight = elementRef.current.getBoundingClientRect().height + 'px';
@@ -26,8 +21,11 @@ const WorkspaceCard = props => {
 	};
 
 	const onEditEnd = (title, description) => {
-		setWorskspaceData({ ...worskspaceData, title: title, description: description });
-		if (!forcedEditionMode || title === '') {
+		if (forcedEditionMode && title === '') {
+			props.onEditInterrupt();
+		} else {
+			title = title === '' ? workspaceData.title : title;
+			setWorkspaceData({ ...workspaceData, title: title, description: description });
 			setEditionMode(false);
 		}
 	};
@@ -37,9 +35,9 @@ const WorkspaceCard = props => {
 			<button className={`${BASE_CLASS}__button`}>
 				<img className={`${BASE_CLASS}__img`} src='jpg/splash.jpg' alt='Workspace image' height='150' />
 				{editionMode ? (
-					<WorkspaceEdit title={worskspaceData.title} description={worskspaceData.description} onEditEnd={onEditEnd} />
+					<WorkspaceEdit title={workspaceData.title} description={workspaceData.description} onEditEnd={onEditEnd} />
 				) : (
-					<WorkspaceDetails title={worskspaceData.title} description={worskspaceData.description} />
+					<WorkspaceDetails title={workspaceData.title} description={workspaceData.description} />
 				)}
 			</button>
 			{editionMode || (

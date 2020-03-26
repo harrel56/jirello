@@ -25,7 +25,7 @@ const useQuery = gqlQuery => {
 
 			setState(result);
 		};
-		fetchData();
+		setTimeout(fetchData, 1500);
 	}, [gqlQuery.query, gqlQuery.queryName]);
 
 	return state;

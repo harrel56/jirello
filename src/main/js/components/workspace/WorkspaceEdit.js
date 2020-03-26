@@ -18,10 +18,10 @@ const WorkspaceEdit = props => {
 
 	return (
 		<div ref={mainDiv} tabIndex='-1' className='workspace-card__details'>
-			<Textarea name='title' defaultValue={title} onChange={e => setTitle(e.target.value)} autoFocus />
+			<Textarea name='Title' defaultValue={title} onChange={e => setTitle(e.target.value)} autoFocus />
 			<Spacer height='40' />
 			<Textarea
-				name='description'
+				name='Description'
 				defaultValue={description}
 				onChange={e => setDescription(e.target.value)}
 				autoHeight
