@@ -5,6 +5,7 @@ extend type Query {
 
 extend type Mutation {
     workspaceCreate(workspace: WorkspaceInput!): Workspace!
+    workspaceUpdate(id: ID!, workspace: WorkspaceInput!): Workspace!
 }
 
 type Workspace {

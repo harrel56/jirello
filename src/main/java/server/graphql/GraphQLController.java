@@ -1,5 +1,6 @@
 package server.graphql;
 
+import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,13 @@ public class GraphQLController {
     private GraphQLProvider graphQLProvider;
 
     @PostMapping("${graphql.endpoint}")
-    public ResponseEntity<Object> graphQLQuery(@RequestBody String query) {
-        ExecutionResult result = graphQLProvider.getGraphQL().execute(query);
+    public ResponseEntity<Object> graphQLQuery(@RequestBody GraphQLInput input) {
+        ExecutionResult result = graphQLProvider.getGraphQL().execute(new ExecutionInput.Builder().query(input.query).variables(input.variables));
         if (result.getErrors().isEmpty()) {
             return ResponseEntity.ok(result.getData());
         } else {
             return ResponseEntity.badRequest().body(result.getErrors());
         }
     }
+
 }

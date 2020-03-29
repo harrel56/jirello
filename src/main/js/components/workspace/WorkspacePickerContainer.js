@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import WorkspacePicker from './WorkspacePicker';
-import useQuery, { workspaceGetAll } from 'hooks/useQuery';
 import Spinner from 'components/generic/Spinner';
+import useQuery from 'hooks/useQuery';
+import { workspaceGetAll } from '../../util/queries';
 
 const WorkspacePickerContainer = () => {
 	const { loading, error, data } = useQuery(workspaceGetAll());

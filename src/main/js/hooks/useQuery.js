@@ -1,48 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-
-const API_URL = 'http://localhost:8080/api/graphql';
+import { gqlFetch } from '../util/queries';
 
 const useQuery = gqlQuery => {
 	const [state, setState] = useState({ loading: true, error: false, data: null });
 
-	const handleBody = res => {
-		if (!res.ok) {
-			throw res.status;
-		}
-		return res.json();
-	};
-
 	useEffect(() => {
-		const fetchData = async () => {
-			const params = {
-				method: 'POST',
-				body: gqlQuery.query
-			};
-			const result = await fetch(API_URL, params)
-				.then(handleBody)
-				.then(res => ({ loading: false, error: false, data: res[gqlQuery.queryName] }))
-				.catch(e => ({ loading: false, error: true, data: e }));
-
-			setState(result);
+		const onSuccess = res => {
+			setState({ loading: false, error: false, data: res[gqlQuery.operationName] });
 		};
-		setTimeout(fetchData, 1500);
-	}, [gqlQuery.query, gqlQuery.queryName]);
+
+		const onError = e => {
+			setState({ loading: false, error: true, data: e });
+		};
+		gqlFetch(gqlQuery)
+			.then(onSuccess)
+			.catch(onError);
+	}, []);
 
 	return state;
 };
 
 export default useQuery;
-
-export const workspaceGetAll = () => {
-	const name = 'workspaceGetAll';
-	return {
-		query: `{
-		${name} {
-			id
-			title
-			description
-		}
-	}`,
-		queryName: name
-	};
-};

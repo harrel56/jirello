@@ -36,7 +36,7 @@ public class WebColumnTest extends WebTaskTest {
     @CsvFileSource(resources = "/web/paramsBad.csv")
     void createBad(String title) throws IOException {
         String body = String.format(resToString(createRes), title);
-        ResponseEntity<String> result = template.postForEntity(getURL(), body, String.class);
+        ResponseEntity<String> result = executePost(body);
         assertEquals(HttpStatus.BAD_REQUEST, result.getStatusCode());
     }
 
@@ -55,7 +55,7 @@ public class WebColumnTest extends WebTaskTest {
 
     ColumnOutput create(String title) throws IOException {
         String body = String.format(resToString(createRes), title);
-        ResponseEntity<String> result = template.postForEntity(getURL(), body, String.class);
+        ResponseEntity<String> result = executePost(body);
         assertEquals(HttpStatus.OK, result.getStatusCode());
 
         JsonNode node = unpack(result.getBody());
@@ -69,7 +69,7 @@ public class WebColumnTest extends WebTaskTest {
 
     void getById(ColumnOutput in) throws IOException {
         String body = String.format(resToString(getRes), in.getId());
-        ResponseEntity<String> result = template.postForEntity(getURL(), body, String.class);
+        ResponseEntity<String> result = executePost(body);
         assertEquals(HttpStatus.OK, result.getStatusCode());
 
         JsonNode node = unpack(result.getBody());

@@ -57,7 +57,7 @@ public class WebTaskTest extends WebTest {
     @CsvFileSource(resources = "/web/paramsBad.csv")
     void createBad(String title, String desc) throws IOException {
         String body = String.format(resToString(createRes), title, desc, null);
-        ResponseEntity<String> result = template.postForEntity(getURL(), body, String.class);
+        ResponseEntity<String> result = executePost(body);
         assertEquals(HttpStatus.BAD_REQUEST, result.getStatusCode());
     }
 
@@ -67,7 +67,7 @@ public class WebTaskTest extends WebTest {
 
     protected TaskOutput createTask(String title, String desc, String colId) throws IOException {
         String body = String.format(resToString(createRes), title, desc, colId);
-        ResponseEntity<String> result = template.postForEntity(getURL(), body, String.class);
+        ResponseEntity<String> result = executePost(body);
         assertEquals(HttpStatus.OK, result.getStatusCode());
 
         JsonNode node = unpack(result.getBody());
@@ -82,7 +82,7 @@ public class WebTaskTest extends WebTest {
 
     protected void getTaskById(TaskOutput in) throws IOException {
         String body = String.format(resToString(getRes), in.getId());
-        ResponseEntity<String> result = template.postForEntity(getURL(), body, String.class);
+        ResponseEntity<String> result = executePost(body);
         assertEquals(HttpStatus.OK, result.getStatusCode());
 
         JsonNode node = unpack(result.getBody());
@@ -92,7 +92,7 @@ public class WebTaskTest extends WebTest {
 
     protected TaskOutput updateTask(String id, String title2, String desc2) throws IOException {
         String body = String.format(resToString(updateRes), id, title2, desc2);
-        ResponseEntity<String> result = template.postForEntity(getURL(), body, String.class);
+        ResponseEntity<String> result = executePost(body);
         assertEquals(HttpStatus.OK, result.getStatusCode());
 
         JsonNode node = unpack(result.getBody());
@@ -107,7 +107,7 @@ public class WebTaskTest extends WebTest {
     }
 
     void getAll(List<TaskOutput> all) throws IOException {
-        ResponseEntity<String> result = template.postForEntity(getURL(), resToString(getAllRes), String.class);
+        ResponseEntity<String> result = executePost(resToString(getAllRes));
         assertEquals(HttpStatus.OK, result.getStatusCode());
 
         JsonNode node = unpack(result.getBody());

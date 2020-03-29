@@ -3,6 +3,8 @@ import Button from 'components/generic/Button';
 import WorkspaceEdit from './WorkspaceEdit';
 import WorkspaceDetails from './WorkspaceDetails';
 import classNames from 'classnames';
+import useLazyQuery from '../../hooks/useLazyQuery';
+import { workspaceUpdate } from '../../util/queries';
 
 const BASE_CLASS = 'workspace-card';
 
@@ -10,6 +12,13 @@ const WorkspaceCard = props => {
 	const forcedEditionMode = props.editionMode;
 	const [workspaceData, setWorkspaceData] = useState(props.data ? props.data : { title: '', description: '' });
 	const [editionMode, setEditionMode] = useState(forcedEditionMode);
+
+	const { executionCallback: callUpdate, loading, error, data } = useLazyQuery();
+
+	console.info(loading);
+	console.info(error);
+	console.info(data);
+
 	const elementRef = useRef(null);
 	const elementClass = classNames(BASE_CLASS, props.className, {
 		[`${BASE_CLASS}--edit`]: editionMode
@@ -25,7 +34,11 @@ const WorkspaceCard = props => {
 			props.onEditInterrupt();
 		} else {
 			title = title === '' ? workspaceData.title : title;
-			setWorkspaceData({ ...workspaceData, title: title, description: description });
+			const newWorkspace = { ...workspaceData, title: title, description: description };
+			if (JSON.stringify(workspaceData) !== JSON.stringify(newWorkspace)) {
+				setWorkspaceData(newWorkspace);
+				callUpdate(workspaceUpdate(newWorkspace));
+			}
 			setEditionMode(false);
 		}
 	};
