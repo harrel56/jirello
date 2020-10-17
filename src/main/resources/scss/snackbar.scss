@@ -1,0 +1,29 @@
+@use 'utils';
+
+.snackbar {
+  position: fixed;
+  display: grid;
+  height: 50px;
+  width: 150px;
+  bottom: 20px;
+  padding: 5px 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  color: $contentColor;
+  border-radius: 6px;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+
+  &--success {
+    background-color: green;
+  }
+
+  &--error {
+    background-color: red;
+  }
+
+  & > span {
+    place-self: center;
+  }
+}

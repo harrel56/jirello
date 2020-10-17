@@ -52,3 +52,20 @@ export const workspaceUpdate = ({ id, ...workspace }) => {
 		variables: { [`${paramName}`]: workspace }
 	};
 };
+
+export const workspaceCreate = (workspace) => {
+	const name = 'workspaceCreate';
+	const paramName = 'workspaceJson';
+	const query = `
+	mutation($${paramName}: WorkspaceInput!) {
+		${name}(workspace: $${paramName}) {
+			title
+			description
+		}
+	}`;
+	return {
+		query: query,
+		operationName: name,
+		variables: { [`${paramName}`]: workspace }
+	};
+};

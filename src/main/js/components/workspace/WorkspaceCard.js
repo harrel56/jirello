@@ -1,23 +1,40 @@
-import React, { useState, useRef } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import Button from 'components/generic/Button';
 import WorkspaceEdit from './WorkspaceEdit';
 import WorkspaceDetails from './WorkspaceDetails';
 import classNames from 'classnames';
 import useLazyQuery from '../../hooks/useLazyQuery';
-import { workspaceUpdate } from '../../util/queries';
+import { workspaceUpdate, workspaceCreate } from '../../util/queries';
+import { useSnackbarSuccess, useSnackbarError } from '../../hooks/useSnackbar';
 
 const BASE_CLASS = 'workspace-card';
 
 const WorkspaceCard = props => {
-	const forcedEditionMode = props.editionMode;
+	const isNewEntry = props.editionMode;
 	const [workspaceData, setWorkspaceData] = useState(props.data ? props.data : { title: '', description: '' });
-	const [editionMode, setEditionMode] = useState(forcedEditionMode);
+	const [editionMode, setEditionMode] = useState(isNewEntry);
 
 	const { executionCallback: callUpdate, loading, error, data } = useLazyQuery();
+
+	const openSnackbarSuccess = useSnackbarSuccess();
+	const openSnackbarError = useSnackbarError();
 
 	console.info(loading);
 	console.info(error);
 	console.info(data);
+	useEffect(() => {
+		if (data) {
+			openSnackbarSuccess(data.title);
+			setWorkspaceData(data);
+		}
+	}, [data]);
+
+	useEffect(() => {
+		if (error) {
+			openSnackbarError(workspaceData.title);
+		}
+	}, [error]);
 
 	const elementRef = useRef(null);
 	const elementClass = classNames(BASE_CLASS, props.className, {
@@ -30,12 +47,14 @@ const WorkspaceCard = props => {
 	};
 
 	const onEditEnd = (title, description) => {
-		if (forcedEditionMode && title === '') {
+		if (isNewEntry && title === '') {
 			props.onEditInterrupt();
 		} else {
 			title = title === '' ? workspaceData.title : title;
 			const newWorkspace = { ...workspaceData, title: title, description: description };
-			if (JSON.stringify(workspaceData) !== JSON.stringify(newWorkspace)) {
+			if (!workspaceData.id) {
+				callUpdate(workspaceCreate(newWorkspace));
+			} else if (JSON.stringify(workspaceData) !== JSON.stringify(newWorkspace)) {
 				setWorkspaceData(newWorkspace);
 				callUpdate(workspaceUpdate(newWorkspace));
 			}
@@ -50,8 +69,8 @@ const WorkspaceCard = props => {
 				{editionMode ? (
 					<WorkspaceEdit title={workspaceData.title} description={workspaceData.description} onEditEnd={onEditEnd} />
 				) : (
-					<WorkspaceDetails title={workspaceData.title} description={workspaceData.description} />
-				)}
+						<WorkspaceDetails title={workspaceData.title} description={workspaceData.description} />
+					)}
 			</button>
 			{editionMode || (
 				<div>

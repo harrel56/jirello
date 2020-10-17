@@ -10,18 +10,18 @@ $lightDim: rgba(0, 0, 0, 0.015);
 $cubicBezier: cubic-bezier(0.3, 0.9, 0.8, 0.9);
 
 @mixin absolute($top: null, $right: null, $bottom: null, $left: null) {
-	position: absolute;
-	top: $top;
-	right: $right;
-	bottom: $bottom;
-	left: $left;
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
 }
 
 @mixin flex-column {
-	display: flex;
-	flex-flow: column nowrap;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .u-flex-column {
-	@include flex-column;
+  @include flex-column;
 }
