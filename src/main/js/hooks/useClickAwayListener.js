@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
-export const useClickAwayListener = (ref, onClickAway) => {
+export const useClickAwayListener = (ref, onClickAwayRef) => {
 	const handleClick = e => {
 		if (ref.current && !ref.current.contains(e.target)) {
-			onClickAway();
+			onClickAwayRef.current();
 		}
 	};
 
@@ -12,5 +12,5 @@ export const useClickAwayListener = (ref, onClickAway) => {
 		return () => {
 			document.removeEventListener('mousedown', handleClick);
 		};
-	});
+	}, []);
 };

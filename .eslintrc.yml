@@ -15,7 +15,12 @@ parserOptions:
 plugins:
   - react
   - react-hooks
-rules: { 'react/prop-types': 0, 'react-hooks/rules-of-hooks': 'error', 'react-hooks/exhaustive-deps': 'warn' }
+rules:
+  {
+    'react/prop-types': 0,
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 0,
+  }
 
 settings:
   import/resolver:

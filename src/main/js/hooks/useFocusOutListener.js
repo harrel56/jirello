@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 
-export const useFocusOutListener = (ref, onFocusOut) => {
+export const useFocusOutListener = (ref, onFocusOutRef) => {
 	const handleFocusChange = e => {
 		if (ref.current && !ref.current.contains(e.target)) {
-			onFocusOut();
+			onFocusOutRef.current();
 		}
 	};
 
 	const handleWindowBlur = () => {
-		onFocusOut();
+		onFocusOutRef.current();
 	};
 
 	useEffect(() => {
@@ -18,5 +18,5 @@ export const useFocusOutListener = (ref, onFocusOut) => {
 			document.removeEventListener('focus', handleFocusChange, true);
 			window.removeEventListener('blur', handleWindowBlur);
 		};
-	});
+	}, []);
 };

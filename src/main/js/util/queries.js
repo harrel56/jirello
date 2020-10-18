@@ -42,6 +42,7 @@ export const workspaceUpdate = ({ id, ...workspace }) => {
 	const query = `
 	mutation($${paramName}: WorkspaceInput!) {
 		${name}(id: "${id}", workspace: $${paramName}) {
+			id
 			title
 			description
 		}
@@ -59,6 +60,7 @@ export const workspaceCreate = (workspace) => {
 	const query = `
 	mutation($${paramName}: WorkspaceInput!) {
 		${name}(workspace: $${paramName}) {
+			id
 			title
 			description
 		}
